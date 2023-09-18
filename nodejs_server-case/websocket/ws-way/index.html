@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>实时通信</title>
+  </head>
+  <body>
+    <h1>实时通信</h1>
+    <form>
+      <input id="messageInput" />
+      <button id="sendButton">发送</button>
+    </form>
+    <ul id="messages"></ul>
+    <script>
+      const messageList = document.getElementById('messages')
+      const messageInput = document.getElementById('messageInput')
+      const sendButton = document.getElementById('sendButton')
+      let socket = null
+
+      // 连接 WebSocket 服务器
+      function connect() {
+        socket = new WebSocket('ws://localhost:3000')
+
+        // 监听 WebSocket 连接
+        socket.onopen = () => {
+          console.log('WebSocket 连接已建立')
+        }
+
+        // 监听 WebSocket 消息
+        socket.onmessage = event => {
+          const message = event.data
+          const li = document.createElement('li')
+          li.textContent = message
+          messageList.appendChild(li)
+        }
+
+        // 监听 WebSocket 关闭事件
+        socket.onclose = event => {
+          console.log('WebSocket 连接已关闭')
+          setTimeout(connect, 3000)
+        }
+      }
+
+      // 发送消息到 WebSocket 服务器
+      function sendMessage(message) {
+        socket.send(message)
+      }
+
+      // 发送消息按钮点击事件
+      sendButton.addEventListener('click', event => {
+        event.preventDefault()
+        const message = messageInput.value.trim()
+        if (message) {
+          sendMessage(message)
+          messageInput.value = ''
+        }
+      })
+
+      // 连接 WebSocket 服务器
+      connect()
+    </script>
+  </body>
+</html>

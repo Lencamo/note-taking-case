@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./axios.min.js"></script>
+  </head>
+  <body>
+    <h4>1、请求方式</h4>
+    <button class="btn-axios">发起跨域请求</button>
+
+    <h4>2、服务器地址</h4>
+    <p>express-代理服务器：http://localhost:5050/ren/data</p>
+    <p>express-http服务器：http://localhost:6061/data</p>
+
+    <script>
+      document.querySelector('.btn-axios').onclick = function () {
+        // 向代理商5050发起数据请求
+        axios.get('http://localhost:5050/ren/data').then((res) => {
+          console.log(res.data)
+        })
+      }
+    </script>
+  </body>
+</html>

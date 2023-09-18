@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./axios.min.js"></script>
+  </head>
+  <body>
+    <h4>1、请求方式</h4>
+    <button class="btn-axios">发起axios请求</button>
+
+    <h4>2、服务器地址</h4>
+    <p>node原生-http服务器：<br /><br />http://localhost:6061/problems/?category_id=2&sort=students_count</p>
+
+    <script>
+      document.querySelector('.btn-axios').onclick = function () {
+        axios.get('http://localhost:6061/problems/?category_id=2&sort=students_count').then((res) => {
+          console.log(res.data)
+        })
+      }
+    </script>
+  </body>
+</html>

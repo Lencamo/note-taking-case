@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.js"></script> -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <h4>1、请求方式</h4>
+    <button class="btn-XHR">发起跨域请求-XHR请求</button>
+    <br /><br />
+    <button class="btn-fetch">发起跨域请求-fetch请求</button>
+    <br /><br />
+    <button class="btn-axios">发起跨域请求-axios请求</button>
+
+    <h4>2、服务器地址</h4>
+    <p>原生node服务器：http://localhost:6060/data</p>
+    <p>express服务器：http://localhost:6061/data</p>
+    <script>
+      document.querySelector('.btn-XHR').onclick = function () {
+        var xhr = new XMLHttpRequest()
+        xhr.open('GET', 'http://localhost:6060/data')
+        xhr.send()
+        xhr.onload = function () {
+          if (xhr.status === 200) {
+            console.log(JSON.parse(xhr.responseText))
+          }
+        }
+      }
+
+      document.querySelector('.btn-fetch').onclick = function () {
+        fetch('http://localhost:6060/data')
+          .then((res) => res.json())
+          .then((res) => {
+            console.log(res)
+          })
+      }
+
+      document.querySelector('.btn-axios').onclick = function () {
+        axios.get('http://localhost:6061/data/').then((res) => {
+          console.log(res.data)
+        })
+      }
+    </script>
+  </body>
+</html>

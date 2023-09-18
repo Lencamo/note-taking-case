@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.js"></script>
+  </head>
+  <body>
+    <h4>1、请求方式</h4>
+    <button class="btn-origin">发起跨域请求-原生js封装方式</button>
+    <br /><br />
+    <button class="btn-jquery">发起跨域请求-jQuery请求方式</button>
+
+    <h4>2、服务器地址</h4>
+    <p>原生node服务器：http://localhost:6060/data?callback=requestData</p>
+    <p>express服务器：http://localhost:6061/data?callback=requestData</p>
+    <script>
+      document.querySelector('.btn-origin').onclick = function () {
+        // JSONP请求封装
+        function jsonp(url, callback) {
+          const script = document.createElement('script')
+          script.src = url + '?callback=' + callback
+          document.body.appendChild(script)
+        }
+
+        // 1、发起请求
+        jsonp('http://localhost:6060/data', 'requestData')
+      }
+
+      // 2、接收数据（回调 -- 供后端调用）
+      function requestData(data) {
+        console.log(data)
+      }
+
+      document.querySelector('.btn-jquery').onclick = function () {
+        $.ajax({
+          dataType: 'jsonp',
+          url: 'http://localhost:6061/data',
+
+          // 设置指定的回调函数名
+          // 【等效于上面的：'?callback=' + callback】
+          jsonp: 'callback',
+          jsonpCallback: 'requestData',
+
+          success: function (res) {
+            console.log(res)
+          }
+        })
+      }
+    </script>
+  </body>
+</html>

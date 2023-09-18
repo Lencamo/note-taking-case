@@ -1,0 +1,84 @@
+{
+    "status": 200,
+    "msg": "获取图书列表成功",
+    "data": [
+        {
+            "id": 1,
+            "bookname": "西游记",
+            "author": "吴承恩",
+            "publisher": "北京图书出版社"
+        },
+        {
+            "id": 2,
+            "bookname": "红楼梦",
+            "author": "曹雪芹",
+            "publisher": "上海图书出版社"
+        },
+        {
+            "id": 3,
+            "bookname": "三国演义",
+            "author": "罗贯中",
+            "publisher": "北京图书出版社"
+        },
+        {
+            "id": 4,
+            "bookname": "西游记",
+            "author": "吴承恩",
+            "publisher": "北京图书出版社"
+        },
+        {
+            "id": 5,
+            "bookname": "红楼梦",
+            "author": "曹雪芹",
+            "publisher": "上海图书出版社"
+        },
+        {
+            "id": 6,
+            "bookname": "三国演义",
+            "author": "罗贯中",
+            "publisher": "北京图书出版社"
+        },
+        {
+            "id": 7,
+            "bookname": "天龙八部",
+            "author": "张三",
+            "publisher": "济南出版社"
+        },
+        {
+            "id": 8,
+            "bookname": "哈哈",
+            "author": "嘻嘻",
+            "publisher": "呜呜"
+        },
+        {
+            "id": 9,
+            "bookname": "嘿嘿",
+            "author": "嘻嘻",
+            "publisher": "呜呜"
+        },
+        {
+            "id": 10,
+            "bookname": "水浒传",
+            "author": "施耐庵",
+            "publisher": "北京图书出版社"
+        },
+        {
+            "id": 11,
+            "bookname": "牛牛最棒了",
+            "author": "图图",
+            "publisher": "胡图图出版社"
+        },
+        {
+            "id": 13,
+            "bookname": "历险记",
+            "author": "八嘎",
+            "publisher": "八嘎出版社"
+        },
+        {
+            "id": 14,
+            "bookname": "韩韩韩成长记",
+            "author": "韩韩",
+            "publisher": "韩韩出版社"
+        }
+    ]
+}

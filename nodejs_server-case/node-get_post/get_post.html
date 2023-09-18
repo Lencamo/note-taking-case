@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./axios.min.js"></script>
+  </head>
+  <body>
+    <h4>1、请求方式</h4>
+    <button class="btn-get">发起get请求</button>
+    <button class="btn-post">发起post请求</button>
+
+    <h4>2、服务器地址</h4>
+    <p>express-http服务器：<br /><br />http://localhost:5050/data</p>
+
+    <script>
+      document.querySelector('.btn-get').onclick = function () {
+        axios.get('http://localhost:5050/get/data').then((res) => {
+          console.log(res.data)
+        })
+      }
+      document.querySelector('.btn-post').onclick = function () {
+        axios
+          .post('http://localhost:5050/post/data', {
+            username: 'lencamo',
+            age: '21'
+          })
+          .then((res) => {
+            console.log(res.data)
+          })
+      }
+    </script>
+  </body>
+</html>

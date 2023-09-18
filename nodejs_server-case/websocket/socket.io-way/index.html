@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>实时通信</title>
+    <script src="./socket.io.min.js"></script>
+  </head>
+  <body>
+    <h1>实时通信</h1>
+    <form>
+      <input id="messageInput" />
+      <button id="sendButton">发送</button>
+    </form>
+    <ul id="messages"></ul>
+    <script>
+      const messageList = document.getElementById('messages')
+      const messageInput = document.getElementById('messageInput')
+      const sendButton = document.getElementById('sendButton')
+
+      // socket = new WebSocket('ws://localhost:3000')
+      const socket = io('http://localhost:3000', { transport: ['websocket'] }) // 指定传输方式
+
+      // 监听 WebSocket 连接 ✖
+      // socket.onopen = () => {
+      //   console.log('WebSocket 连接已建立')
+      // }
+
+      // 监听 WebSocket 消息
+      // socket.onmessage = event => {
+      //   const message = event.data
+      //   const li = document.createElement('li')
+      //   li.textContent = message
+      //   messageList.appendChild(li)
+      // }
+      // 👀
+      socket.on('message', message => {
+        const li = document.createElement('li')
+        li.textContent = message
+        messageList.appendChild(li)
+      })
+
+      // 监听 WebSocket 关闭事件 ✖
+      // socket.onclose = event => {
+      //   console.log('WebSocket 连接已关闭')
+      //   setTimeout(connect, 3000)
+      // }
+
+      // 发送消息到 WebSocket 服务器
+      function sendMessage(message) {
+        // socket.send(message)
+        socket.emit('message', message) // 👀
+      }
+
+      // 发送消息按钮点击事件
+      sendButton.addEventListener('click', event => {
+        event.preventDefault()
+        const message = messageInput.value.trim()
+        if (message) {
+          // sendMessage(message)
+          socket.emit('message', message) // 👀
+          messageInput.value = ''
+        }
+      })
+    </script>
+  </body>
+</html>

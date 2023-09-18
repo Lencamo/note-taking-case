@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>实时通信</title>
+  </head>
+  <body>
+    <h1>实时通信</h1>
+    <form>
+      <input id="messageInput" />
+      <button id="sendButton">发送</button>
+    </form>
+    <ul id="messages"></ul>
+    <script>
+      const messageList = document.getElementById('messages')
+      const messageInput = document.getElementById('messageInput')
+      const sendButton = document.getElementById('sendButton')
+
+      // 发送消息到服务器
+      function sendMessage(message) {
+        fetch('http://localhost:3000/messages', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ message })
+        })
+      }
+
+      // 获取最新的消息
+      function getMessages() {
+        fetch('http://localhost:3000/messages')
+          .then(res => res.json())
+          .then(messages => {
+            messageList.innerHTML = ''
+            messages.forEach(message => {
+              const li = document.createElement('li')
+              li.textContent = message
+              messageList.appendChild(li)
+            })
+            // 获取完最新的消息后再次启动定时器
+            setTimeout(getMessages, 1000)
+          })
+      }
+
+      // 发送消息按钮点击事件
+      sendButton.addEventListener('click', event => {
+        event.preventDefault()
+        const message = messageInput.value.trim()
+        console.log(message)
+        if (message) {
+          sendMessage(message)
+          messageInput.value = ''
+        }
+      })
+
+      // 启动定时器
+      setTimeout(getMessages, 1000)
+    </script>
+  </body>
+</html>
