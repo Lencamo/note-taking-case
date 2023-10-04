@@ -1,0 +1,33 @@
+version: '3'
+
+networks:
+  ruoyi_net:
+
+services:
+  # docker build -t ruoyi-admin:v1.0 .
+  # docker run -itd --name ruoyi-admin -p 5051:8080 ruoyi-admin:v1.0
+  ruoyi-admin:
+    container_name: ruoyi-admin
+    # image: ruoyi-admin:v1.0
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - '5051:8080'
+    restart: always
+    networks:
+      - ruoyi_net
+
+  # docker build -t ruoyi-ui:v1.0 .
+  # docker run -itd --name ruoyi-ui -p 81:80 ruoyi-ui:v1.0
+  ruoyi-ui:
+    container_name: ruoyi-ui
+    # image: ruoyi-ui:v1.0
+    build:
+      context: ./ruoyi-ui
+      dockerfile: Dockerfile
+    ports:
+      - '81:80'
+    restart: always
+    networks:
+      - ruoyi_net
