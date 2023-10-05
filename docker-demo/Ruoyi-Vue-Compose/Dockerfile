@@ -8,9 +8,7 @@ RUN mkdir -p /app/ruoyi-admin
 COPY --from=0 /ruoyi/ruoyi-admin/target/ruoyi-admin.jar /app/ruoyi-admin
 WORKDIR /app/ruoyi-admin
 
-# 使用shell部署
-# CMD ["java","-jar","ruoyi-admin.jar"]
-# 使用docker components部署
-ENTRYPOINT [ "java","-jar","ruoyi-admin.jar","--spring.profiles.active=prod" ]
+CMD ["java","-jar","ruoyi-admin.jar"]
+# ENTRYPOINT [ "java","-jar","ruoyi-admin.jar","--spring.profiles.active=prod" ]
 
 EXPOSE 8080
