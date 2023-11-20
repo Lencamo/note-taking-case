@@ -169,6 +169,7 @@ class BSTree<T> {
   // -----------------------
   // -----------------------
 
+  // 根据element查找目标节点
   private searchNode(checkElement: T): TreeNode<T> | null {
     let currentNode = this.root
     let parentNode: TreeNode<T> | null = null
@@ -193,6 +194,35 @@ class BSTree<T> {
     return null
   }
 
+  // 根据目标节点查找其后继节点
+  private searchSuccessorNode(targetElement: TreeNode<T>): TreeNode<T> | null {
+    // 后继节点：targetElement的右子树中的最大值
+
+    // 右子树
+    let currentNode = targetElement.right
+
+    // 后继节点
+    let successorNode: TreeNode<T> | null = null
+
+    while (currentNode) {
+      successorNode = currentNode // 左子树节点
+      currentNode = currentNode.left // 若左子树节点有左子树节点
+
+      if (currentNode) {
+        currentNode.parent = successorNode
+      }
+    }
+
+    // 数据填充
+    successorNode!.left = targetElement.left
+    if (successorNode !== targetElement.right) {
+      successorNode!.parent!.left = successorNode!.right // 若后继节点有右子节点
+      successorNode!.right = targetElement.right
+    }
+
+    return successorNode
+  }
+
   getElement(checkElement: T): boolean {
     const isExist = !!this.searchNode(checkElement)
 
@@ -200,32 +230,40 @@ class BSTree<T> {
   }
 
   removeElement(targetElement: T): boolean {
-    // 删除的是根节点
-    if (targetElement === this.root?.element) {
-      this.root = null
-      return true
-    }
-
-    // -------
-
     const currentNode = this.searchNode(targetElement)
+
     if (currentNode === null) return false
+
+    // 待赋值的treenode节点
+    let nodeAssignment: TreeNode<T> | null = null
+
+    // ---------
 
     // 删除的是叶子节点
     if (currentNode.left === null && currentNode.right === null) {
-      if (currentNode.isLeft) currentNode.parent!.left = null
-      if (currentNode.isRight) currentNode.parent!.right = null
+      nodeAssignment = null
     }
     // 删除的节点有一个子节点（左子节点）
     else if (currentNode.right === null) {
-      if (currentNode.isLeft) currentNode.parent!.left = currentNode.left
-      if (currentNode.isRight) currentNode.parent!.right = currentNode.left
+      nodeAssignment = currentNode.left
     }
     // 删除的节点有一个子节点（右子节点）
     else if (currentNode.left === null) {
-      if (currentNode.isLeft) currentNode.parent!.left = currentNode.right
-      if (currentNode.isRight) currentNode.parent!.right = currentNode.right
+      nodeAssignment = currentNode.right
     }
+    // 删除的节点有两个子节点
+    else {
+      const successorNode = this.searchSuccessorNode(currentNode)
+
+      nodeAssignment = successorNode
+    }
+
+    // ---------
+
+    // 正式执行删除操作
+    if (currentNode === this.root) this.root = nodeAssignment // 删除的是根节点
+    if (currentNode.isLeft) currentNode.parent!.left = nodeAssignment
+    if (currentNode.isRight) currentNode.parent!.right = nodeAssignment
 
     return true
   }
