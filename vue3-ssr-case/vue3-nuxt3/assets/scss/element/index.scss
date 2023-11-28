@@ -1,0 +1,16 @@
+$-colors: (
+  'primary': (
+    'base': rgba(107, 33, 168, 1)
+  ),
+  'success': (
+    'base': #67c23a
+  )
+);
+
+// 主题配置自定义
+@forward 'element-plus/theme-chalk/src/common/var.scss' with (
+  $colors: $-colors
+);
+
+// 暗色模式自定义
+@use './dark.scss';
