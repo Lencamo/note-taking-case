@@ -1,7 +1,7 @@
 import { IQueue } from '../types/IList'
 // 定义
 class ArrayQueue<T> implements IQueue<T> {
-  private data: T[] = []
+  protected data: T[] = []
 
   enqueue(element: T): void {
     this.data.push(element) // 末尾追加

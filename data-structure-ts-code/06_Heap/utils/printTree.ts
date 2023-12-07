@@ -95,3 +95,33 @@ export function printBSTree(root: PrintableNode | null): void {
     perpiece /= 2
   }
 }
+
+export function printHeap<T = any>(arr: T[]) {
+  let root: PrintableNode | null = null
+  const nodes: PrintableNode[] = []
+  for (let i = 0; i <= Math.floor((arr.length - 1) / 2); i++) {
+    let node = nodes[i]
+    if (!node) {
+      node = { element: arr[i], left: null, right: null }
+      nodes[i] = node
+    }
+    if (i === 0) root = node
+    if (2 * i + 1 < arr.length) {
+      let left = nodes[2 * i + 1]
+      if (!left) {
+        left = { element: arr[2 * i + 1], left: null, right: null }
+        nodes[2 * i + 1] = left
+      }
+      node.left = left
+    }
+    if (2 * i + 2 < arr.length) {
+      let right = nodes[2 * i + 2]
+      if (!right) {
+        right = { element: arr[2 * i + 2], left: null, right: null }
+        nodes[2 * i + 2] = right
+      }
+      node.right = right
+    }
+  }
+  printBSTree(root)
+}

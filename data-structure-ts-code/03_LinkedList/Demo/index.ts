@@ -9,13 +9,13 @@ linkedList.append('d')
 console.log(linkedList.traverse())
 console.log(linkedList.indexOf('c'))
 
-console.log('当前的栈顶元素为：', linkedList.peek())
+console.log('当前链表的head元素为：', linkedList.peek())
 
 console.log('当前链表的元素个数：', linkedList.length)
 console.log('当前链表是否为空：', linkedList.isEmpty())
 
-console.log('清空当前链表的元素：', linkedList.clear())
-console.log(linkedList.traverse())
+// console.log('清空当前链表的元素：', linkedList.clear())
+// console.log(linkedList.traverse())
 
 // -----------------------
 // -----------------------
