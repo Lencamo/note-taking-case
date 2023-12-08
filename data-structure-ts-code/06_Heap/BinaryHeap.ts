@@ -106,7 +106,7 @@ class BinaryHeap<T> {
     this.length = arr.length
 
     // 最底部的第一个非叶子节点
-    const start = Math.floor((this.length - 1) / 2)
+    const start = Math.floor(this.length / 2 - 1)
     for (let i = start; i >= 0; i--) {
       this.heapify_down(i)
     }
